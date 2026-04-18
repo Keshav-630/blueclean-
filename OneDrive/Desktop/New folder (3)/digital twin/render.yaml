@@ -1,14 +1,14 @@
 # Render Blueprint: https://render.com/docs/blueprint-spec
 #
-# rootDir MUST be the folder that contains package.json (usually repo root).
-# Do NOT use "src" — package.json is not inside src/.
-# If your GitHub repo has a nested folder (e.g. .../digital twin/), set rootDir to that path.
+# rootDir = folder that contains package.json (relative to Git repo root).
+# This repo nests the app under OneDrive/.../digital twin/ — match GitHub exactly.
+# Later you can move files to repo root and set rootDir to . for a cleaner layout.
 services:
   - type: web
     name: blueclean
     runtime: node
     plan: free
-    rootDir: .
+    rootDir: "OneDrive/Desktop/New folder (3)/digital twin"
     buildCommand: npm install --no-audit --no-fund
     startCommand: npm start
     healthCheckPath: /api/health

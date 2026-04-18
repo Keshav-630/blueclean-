@@ -63,7 +63,7 @@ Common causes:
 
 1. **Root Directory is `src`** — If logs show `.../project/src/package.json` and ENOENT, Render is building from the wrong folder. Open **Settings** → **Root Directory** and clear it (leave empty) or set it to `.` so it matches the folder that contains `package.json`. The blueprint sets `rootDir: .` in `render.yaml`; sync the blueprint again after pushing.
 
-2. **Nested repo on GitHub** — If logs mention a path like `OneDrive/.../digital twin/package.json`, your repo includes a Windows-style path. Either set **Root Directory** to that exact path inside the repo, or (recommended) move all project files to the repository root and push again.
+2. **Nested repo on GitHub** — If `package.json` is not at the repo root (e.g. it lives at `OneDrive/Desktop/New folder (3)/digital twin/package.json`), the blueprint sets `rootDir` to that path. In the Render dashboard you can set **Root Directory** to the same: `OneDrive/Desktop/New folder (3)/digital twin`. Long term, move project files to the repo root and set `rootDir` to `.`.
 
 3. **Missing env vars** — Add `MONGODB_URI` and `JWT_SECRET` under **Environment** for the web service.
 

@@ -61,11 +61,13 @@ Notes:
 
 Common causes:
 
-1. **Wrong root directory** — If `package.json` is not at the Git repo root (for example the repo contains a parent folder), open the service on Render → **Settings** → **Root Directory** and set it to the folder that contains `package.json`, then redeploy.
+1. **Root Directory is `src`** — If logs show `.../project/src/package.json` and ENOENT, Render is building from the wrong folder. Open **Settings** → **Root Directory** and clear it (leave empty) or set it to `.` so it matches the folder that contains `package.json`. The blueprint sets `rootDir: .` in `render.yaml`; sync the blueprint again after pushing.
 
-2. **Missing env vars** — Add `MONGODB_URI` and `JWT_SECRET` under **Environment** for the web service.
+2. **Nested repo on GitHub** — If logs mention a path like `OneDrive/.../digital twin/package.json`, your repo includes a Windows-style path. Either set **Root Directory** to that exact path inside the repo, or (recommended) move all project files to the repository root and push again.
 
-3. **Docker fallback** — Create the service with **Docker** instead of Node and use the included `Dockerfile` if native Node builds keep failing.
+3. **Missing env vars** — Add `MONGODB_URI` and `JWT_SECRET` under **Environment** for the web service.
+
+4. **Docker fallback** — Create the service with **Docker** instead of Node and use the included `Dockerfile` if native Node builds keep failing.
 
 ## API
 

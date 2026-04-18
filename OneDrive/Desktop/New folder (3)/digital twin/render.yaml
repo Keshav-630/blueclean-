@@ -1,11 +1,14 @@
 # Render Blueprint: https://render.com/docs/blueprint-spec
-# If build fails with "cannot find package.json", set Root Directory in the dashboard
-# to the folder that contains package.json (e.g. monorepo subfolder).
+#
+# rootDir MUST be the folder that contains package.json (usually repo root).
+# Do NOT use "src" — package.json is not inside src/.
+# If your GitHub repo has a nested folder (e.g. .../digital twin/), set rootDir to that path.
 services:
   - type: web
     name: blueclean
     runtime: node
     plan: free
+    rootDir: .
     buildCommand: npm install --no-audit --no-fund
     startCommand: npm start
     healthCheckPath: /api/health

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlueClean - Real-time Pollution Reporting</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <header>
+      <div>
+        <h1>BlueClean</h1>
+        <p>Real-time environmental pollution monitoring and response</p>
+      </div>
+      <div class="header-tags">
+        <span class="tag">Live Alerts</span>
+        <span class="tag">AI Severity</span>
+        <span class="tag">Community Driven</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel form-panel">
+        <h2>Report Incident</h2>
+        <div class="auth-box">
+          <p id="authStatus" class="meta">Not signed in</p>
+          <div class="auth-grid">
+            <input id="authName" type="text" placeholder="Name (for register)" />
+            <input id="authEmail" type="email" placeholder="Email" />
+            <input id="authPassword" type="password" placeholder="Password" />
+            <select id="authRole">
+              <option value="citizen">Citizen</option>
+              <option value="authority">Authority</option>
+              <option value="ngo">NGO</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="auth-actions">
+            <button id="registerBtn" type="button">Register</button>
+            <button id="loginBtn" type="button">Login</button>
+            <button id="logoutBtn" type="button">Logout</button>
+          </div>
+        </div>
+        <div class="stats-grid" id="statsGrid">
+          <article class="stat-card"><span>Total</span><strong id="statTotal">0</strong></article>
+          <article class="stat-card"><span>Open</span><strong id="statOpen">0</strong></article>
+          <article class="stat-card"><span>High</span><strong id="statHigh">0</strong></article>
+          <article class="stat-card"><span>Low</span><strong id="statLow">0</strong></article>
+        </div>
+        <form id="reportForm">
+          <input type="text" name="reporterName" placeholder="Your name (optional)" />
+          <select name="pollutionType" required>
+            <option value="">Select pollution type</option>
+            <option>Oil Spill</option>
+            <option>Chemical Spill</option>
+            <option>Sewage Discharge</option>
+            <option>Plastic Waste</option>
+            <option>Industrial Waste</option>
+            <option>Air Pollution</option>
+            <option>Littering</option>
+            <option>Dead Wildlife</option>
+            <option>Other</option>
+          </select>
+          <textarea name="description" rows="4" required placeholder="Describe what you observed"></textarea>
+          <div class="coords-row">
+            <input type="number" step="any" name="lat" placeholder="Latitude" required />
+            <input type="number" step="any" name="lng" placeholder="Longitude" required />
+            <button type="button" id="useMyLocation">Use GPS</button>
+          </div>
+          <label class="file-input">
+            Add photo
+            <input type="file" name="photo" accept="image/*" />
+          </label>
+          <button type="submit">Submit Report</button>
+          <p id="formStatus" class="status-text"></p>
+        </form>
+      </section>
+
+      <section class="panel map-panel">
+        <div class="panel-head">
+          <h2>Live Incident Map</h2>
+          <div class="legend control-legend">
+            <button id="toggleHeatmap" type="button" class="mini-btn">Heatmap Off</button>
+            <span><i class="dot high"></i>High</span>
+            <span><i class="dot medium"></i>Medium</span>
+            <span><i class="dot low"></i>Low</span>
+          </div>
+        </div>
+        <div id="map"></div>
+      </section>
+
+      <section class="panel feed-panel">
+        <h2>Live Feed</h2>
+        <div class="filters">
+          <select id="filterType">
+            <option value="all">All types</option>
+            <option>Oil Spill</option>
+            <option>Chemical Spill</option>
+            <option>Sewage Discharge</option>
+            <option>Plastic Waste</option>
+            <option>Industrial Waste</option>
+            <option>Air Pollution</option>
+            <option>Littering</option>
+            <option>Dead Wildlife</option>
+            <option>Other</option>
+          </select>
+          <select id="filterSeverity">
+            <option value="all">All severity</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+          <select id="filterStatus">
+            <option value="all">All status</option>
+            <option value="reported">Reported</option>
+            <option value="verified">Verified</option>
+            <option value="cleaning">Cleaning</option>
+            <option value="resolved">Resolved</option>
+          </select>
+          <input id="filterSearch" type="text" placeholder="Search description/reporter..." />
+        </div>
+        <div id="feed"></div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

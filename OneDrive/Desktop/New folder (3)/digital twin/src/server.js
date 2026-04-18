@@ -47,6 +47,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`BlueClean running at http://localhost:${PORT}`);
+const HOST = process.env.HOST || "0.0.0.0";
+server.listen(PORT, HOST, () => {
+  console.log(`BlueClean listening on ${HOST}:${PORT}`);
 });

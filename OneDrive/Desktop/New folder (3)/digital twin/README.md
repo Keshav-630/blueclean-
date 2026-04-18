@@ -54,8 +54,18 @@ BlueClean is a real-time environmental pollution monitoring platform.
 5. Deploy and open your Render URL.
 
 Notes:
-- `PORT` is managed by Render automatically.
+- `PORT` is set by Render automatically — do not hardcode it in the dashboard.
 - Health check is available at `/api/health`.
+
+### Deploy failed (build exit 254)
+
+Common causes:
+
+1. **Wrong root directory** — If `package.json` is not at the Git repo root (for example the repo contains a parent folder), open the service on Render → **Settings** → **Root Directory** and set it to the folder that contains `package.json`, then redeploy.
+
+2. **Missing env vars** — Add `MONGODB_URI` and `JWT_SECRET` under **Environment** for the web service.
+
+3. **Docker fallback** — Create the service with **Docker** instead of Node and use the included `Dockerfile` if native Node builds keep failing.
 
 ## API
 

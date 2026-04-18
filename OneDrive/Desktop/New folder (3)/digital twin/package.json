@@ -16,6 +16,9 @@
   ],
   "author": "",
   "license": "MIT",
+  "engines": {
+    "node": ">=18 <23"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",

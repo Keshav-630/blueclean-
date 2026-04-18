@@ -1,17 +1,17 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# If build fails with "cannot find package.json", set Root Directory in the dashboard
+# to the folder that contains package.json (e.g. monorepo subfolder).
 services:
   - type: web
     name: blueclean
     runtime: node
     plan: free
-    buildCommand: npm install
+    buildCommand: npm install --no-audit --no-fund
     startCommand: npm start
     healthCheckPath: /api/health
-    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET

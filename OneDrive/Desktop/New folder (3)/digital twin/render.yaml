@@ -1,15 +1,15 @@
 # Render Blueprint: https://render.com/docs/blueprint-spec
 #
-# rootDir is relative to the Git repo root. This repository currently stores
-# the app under OneDrive/Desktop/New folder (3)/digital twin.
+# Build and start commands cd into the app folder because this Git repo root
+# is C:/Users/kesha while the Node app is nested below OneDrive/Desktop.
 services:
   - type: web
     name: blueclean
     runtime: node
     plan: free
-    rootDir: "OneDrive/Desktop/New folder (3)/digital twin"
-    buildCommand: npm ci --omit=dev --no-audit --no-fund
-    startCommand: npm start
+    rootDir: .
+    buildCommand: cd "OneDrive/Desktop/New folder (3)/digital twin" && npm ci --omit=dev --no-audit --no-fund
+    startCommand: cd "OneDrive/Desktop/New folder (3)/digital twin" && npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
